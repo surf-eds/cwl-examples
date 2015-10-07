@@ -1,0 +1,8 @@
+{
+    "source": {
+        "class": "File",
+        "path": "rock.ply"
+    },
+    "outdir": "potreeout",
+    "levels": 5
+}
