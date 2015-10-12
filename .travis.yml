@@ -1,5 +1,7 @@
 language: python
-sudo: true
+sudo: required
+services:
+  - docker
 install:
   - pip install cwl-runner
 script:
