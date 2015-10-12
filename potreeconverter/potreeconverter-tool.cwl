@@ -9,13 +9,9 @@ hints:
     dockerPull: sverhoeven/potreeconverter
 
 inputs:
-  - id: "#outdir"
-    type: string
-    inputBinding: { position: 0, prefix: "-o" }
-
   - id: "#levels"
     type: int
-    inputBinding: { position: 1, prefix: "-l" }
+    inputBinding: { position: 0, prefix: "-l" }
 
   - id: "#output-format"
     type:
@@ -23,7 +19,7 @@ inputs:
       symbols: ["BINARY", "LAS", "LAZ"]
       name: output-formats
     default: LAZ
-    inputBinding: { position: 2, prefix: "--output-format" }
+    inputBinding: { position: 1, prefix: "--output-format" }
 
   - id: "#source"
     type: File
@@ -35,8 +31,7 @@ outputs:
     outputBinding: { "glob": "cloud.js" }
   - id: "#octreedir"
     type: "File"
-    outputBinding: { "glob": "data/" }
+    outputBinding: { "glob": "data/r/r.hrc" }
+    # glob should be extended to all files, but number of files and type of files depends on input parameters and source
 
-baseCommand: ["PotreeConverter"]
-
-stdout: "output.txt"
+baseCommand: ["PotreeConverter", "--outdir", "."]
