@@ -1,0 +1,6 @@
+language: python
+sudo: true
+install:
+  - pip install cwl-runner
+script:
+  - cd potreeconverter && ./potreeconverter-tool.cwl potreeconverter-job.json
