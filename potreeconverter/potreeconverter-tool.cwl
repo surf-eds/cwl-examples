@@ -1,6 +1,6 @@
 #!/usr/bin/env cwl-runner
 
-# docker run -u $UID -v $PWD:/data potreeconverter PotreeConverter -l 5 --output-format LAZ /data/input.laz
+# docker run -u $UID -v $PWD:/data sverhoeven/potreeconverter PotreeConverter -l -1 --output-format LAZ /data/input.laz
 
 class: CommandLineTool
 
@@ -11,7 +11,12 @@ hints:
 inputs:
   - id: "#levels"
     type: int
-    inputBinding: { position: 0, prefix: "-l" }
+    default: -1
+    description: |
+      Number of levels that will be generated. 0: only root, 1: root and
+      its children, ...
+    inputBinding:
+      prefix: "-l"
 
   - id: "#output-format"
     type:
@@ -19,19 +24,26 @@ inputs:
       symbols: ["BINARY", "LAS", "LAZ"]
       name: output-formats
     default: LAZ
-    inputBinding: { position: 1, prefix: "--output-format" }
+    inputBinding:
+      prefix: "--output-format"
 
   - id: "#source"
     type: File
-    inputBinding: { position: 3 }
+    description: |
+      Source file. Can be LAS, LAZ, PTX or PLY
+    inputBinding:
+      prefix: "--source"
 
 outputs:
   - id: "#cloudjs"
     type: "File"
-    outputBinding: { "glob": "cloud.js" }
+    outputBinding:
+      glob: cloud.js
   - id: "#octreedir"
-    type: "File"
-    outputBinding: { "glob": "data/r/r.hrc" }
-    # glob should be extended to all files, but number of files and type of files depends on input parameters and source
+    type: File
+    outputBinding:
+      glob: data/r/r.hrc
+      # glob should be extended to all files, but number of files and type of files depends on input parameters and source
 
+# outdir is hardcoded to cwd, the cwl specification requires output in cwd
 baseCommand: ["PotreeConverter", "--outdir", "."]
