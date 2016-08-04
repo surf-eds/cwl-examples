@@ -12,3 +12,4 @@ The workflow can be run using
 ./images2pointcloud.workflow.cwl --input rock.zip --output rock.ply
 ```
 
+The ply file can be viewed using MeshLab or viewed in potree using the potreeconverter.
