@@ -2,5 +2,6 @@
     "source": {
         "class": "File",
         "path": "rock.laz"
-    }
+    },
+    "levels": 1
 }
