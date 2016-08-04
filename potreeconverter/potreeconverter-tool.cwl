@@ -3,47 +3,40 @@
 # docker run -u $UID -v $PWD:/data sverhoeven/potreeconverter PotreeConverter -l -1 --output-format LAZ /data/input.laz
 
 class: CommandLineTool
-
+cwlVersion: v1.0
 hints:
   - class: DockerRequirement
     dockerPull: sverhoeven/potreeconverter
-
+baseCommand: PotreeConverter
 inputs:
-  - id: "#levels"
-    type: int
-    default: -1
-    description: |
+  levels:
+    type: ["null", "int"]
+    doc: |
       Number of levels that will be generated. 0: only root, 1: root and
       its children, ...
     inputBinding:
-      prefix: "-l"
-
-  - id: "#output-format"
+      prefix: --levels
+  output_format:
     type:
       type: enum
       symbols: ["BINARY", "LAS", "LAZ"]
       name: output-formats
-    default: LAZ
+    default: BINARY
     inputBinding:
-      prefix: "--output-format"
-
-  - id: "#source"
+      prefix: --output-format
+  source:
     type: File
-    description: |
+    doc: |
       Source file. Can be LAS, LAZ, PTX or PLY
     inputBinding:
-      prefix: "--source"
-
+      prefix: --source
+  outdir:
+    type: string
+    default: .
+    inputBinding:
+      prefix: --outdir
 outputs:
-  - id: "#cloudjs"
-    type: "File"
+  outdir:
+    type: Directory
     outputBinding:
-      glob: cloud.js
-  - id: "#octreedir"
-    type: File
-    outputBinding:
-      glob: data/r/r.hrc
-      # glob should be extended to all files, but number of files and type of files depends on input parameters and source
-
-# outdir is hardcoded to cwd, the cwl specification requires output in cwd
-baseCommand: ["PotreeConverter", "--outdir", "."]
+      glob: .
