@@ -3,6 +3,12 @@ sudo: required
 services:
   - docker
 install:
+  - pip install -U setuptools
   - pip install cwl-runner
 script:
-  - cd potreeconverter && ./potreeconverter-tool.cwl potreeconverter-job.json
+  - cd potreeconverter
+  - ./potreeconverter-tool.cwl potreeconverter-job.json
+  - file -E cloud.js
+  - cd ../images2pointcloud
+# Check cwl is valid, would like to run, but it will take too long to run
+  - ./images2pointcloud.workflow.cwl --help
