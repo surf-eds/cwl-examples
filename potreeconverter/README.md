@@ -23,6 +23,7 @@ It can be viewed by downloading & uncompressing a Potree release from https://gi
 cd potree-*/
 python3 -m http.server 8000
 ```
+4. View point cloud at http://localhost:8000/examples/viewer.html 
 
 TODO: wrap `potreeconverter-tool.cwl` file and steps above in a workflow.
 
