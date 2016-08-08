@@ -5,7 +5,7 @@ class: CommandLineTool
 doc: "Structure from Motion Pipeline, see https://github.com/NLeSC/structure-from-motion"
 requirements:
 - class: DockerRequirement
-  dockerImageId: nlesc/structure-from-motion
+  dockerPull: nlesc/structure-from-motion
 - class: InitialWorkDirRequirement
   listing: $(inputs.imagesdir.listing)
 inputs:
